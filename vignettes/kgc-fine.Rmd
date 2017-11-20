@@ -1,0 +1,53 @@
+---
+title: "KGC Data Resolution Example"
+author: "Nicholas R. Wheeler, Chelsey Bryant, Franz Rubel, Roger H. French"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{2 - KGC Data Resolution}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\usepackage[utf8]{inputenc}
+---
+
+Two differing resolutions of climate zone data have been included in this package.
+
+These can be accessed with the parameter `res` in the `RoundCoordinates()` and `LookupCZ()` functions.
+
+## Resolution Details
+
+  * Course Resolution
+  
+    - Distance between data points, both latitude and longitude, is 0.5 degrees.
+  
+    - Latitude and longitude values are rounded to the nearest value ending in either 0.25 and 0.75.
+  
+  * Fine Resolution
+  
+    - Distance between data points, in both latitude and longitude, is 100 seconds.
+  
+    - Data originates from a 12960 x 6480 pixel image, and coordinates are rounded to the center coordinates of the nearest pixel.
+    
+## Example
+
+  - An selection of example cities worldwide, and their reported climate zones from Wikipedia, have been included in this package in the dataframe `kgcities`.
+
+  - Estimated climate zones for each city from both course and fine resolution datasets are queried, and results are shown in tabular format.
+
+```{r, message=FALSE, warning=FALSE}
+library("kgc")
+print(head(kgcities))
+
+  # Query Course Resolution
+  data <- data.frame(kgcities, rndCoord.lon = RoundCoordinates(kgcities$lon), rndCoord.lat = RoundCoordinates(kgcities$lat))
+  data <- data.frame(data,CZ.c=LookupCZ(data))
+  colnames(data)[which(colnames(data)=='rndCoord.lon')] <- 'rndCoord.lon.course'
+  colnames(data)[which(colnames(data)=='rndCoord.lat')] <- 'rndCoord.lat.course'
+
+  # Query Fine Resolution
+  data <- data.frame(data, rndCoord.lon = RoundCoordinates(kgcities$lon,res='fine',latlong='lon'), rndCoord.lat = RoundCoordinates(kgcities$lat,res='fine',latlong='lat'))
+  data <- data.frame(data,CZ.f=LookupCZ(data,res='fine'))
+
+  # Print Results
+  print(data[,c(1,3,8,11)])
+
+```

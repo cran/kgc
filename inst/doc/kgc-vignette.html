@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Chelsey Bryant, Nicholas R. Wheeler, Franz Rubel, Roger H. French" />
+
+<meta name="date" content="2017-11-17" />
+
+<title>KGC Vignette</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">KGC Vignette</h1>
+<h4 class="author"><em>Chelsey Bryant, Nicholas R. Wheeler, Franz Rubel, Roger H. French</em></h4>
+<h4 class="date"><em>2017-11-17</em></h4>
+
+
+
+<p>This package was created to ease the process of looking up the Koppen-Geiger Climate Zones for areas. Within this package, one will find helper functions and look up functions.</p>
+<div id="helper-functions" class="section level2">
+<h2>Helper functions</h2>
+<p>These functions within the package help in formatting the data in a way that will lead to a climate zone being predicted.</p>
+<ul>
+<li><p>RoundCoordinates()</p>
+<ul>
+<li><p>As of right now, the data available to help identify a Koppen-Geiger Climate Zone only supports co-ordinates that end in either .25 or .75. This function will then round the inputed parameter to end in one of these patterns. In the case of a number being equally distant from .25 and .75, it will round up for the counting numbers and round down for those that are not.</p></li>
+<li><p>Requires a numeric argument and returns the numeric, rounded integer</p></li>
+</ul></li>
+<li><p>TranslateZipCode()</p>
+<ul>
+<li><p>This function will take a given zip code and provide the longitude and latitude for that location. These co-ordinates are what will be used to look up the climate zone. The longitude and latitude information is according to the 2016 U.S. Census Data.</p></li>
+<li><p>Requires a numeric argument and returns a data frame with the zip code, longitude, and latitude. Parameters can be one individual zip code or a dataframe with a numeric column titled ‘zip’</p></li>
+</ul></li>
+<li><p>RunExample()</p>
+<ul>
+<li><p>This function will run the shiny app found within this package. This shiny app will hide the function calls so that the user does not need to worry about creating data frames or labeling columns appropriately. All that is needed is either a zip code or longitude and latitude co-ordinates for a location.</p></li>
+<li><p>To start the shiny app, simply call “RunExample()”</p></li>
+</ul></li>
+</ul>
+</div>
+<div id="look-up-functions" class="section level2">
+<h2>Look up functions</h2>
+<p>These functions will search for the climate zone</p>
+<ul>
+<li><p>LookUpCZ()</p>
+<ul>
+<li>This function requires a data frame as a parameter. Within this data frame, there must be two columns:
+<ul>
+<li>roundCoord.lat: The rounded latitudinal coordinate</li>
+<li>roundCoord.lon: The rounded longitudinal coordinate</li>
+</ul></li>
+<li><p>The function will then use these two columns to look up the Koppen Geiger Climate Zone for that location.</p></li>
+<li><p>The function returns the predicted climate zone for that location.</p></li>
+</ul></li>
+<li><p>CZUncertainty()</p>
+<ul>
+<li>This function requires a data frame as a parameter. Within this data frame, three columns are required:</li>
+<li>ClimateZ: The predicted climate zone that is returned using the LookUpCZ function</li>
+<li>roundCoord.lat: The rounded latitude coordinate</li>
+<li><p>roundCoord.lon: The rounded longitude coordinate</p></li>
+<li><p>This function will return the uncertainty associated with the predicted climate zone along with other possible climate zones that an area may be in.</p></li>
+</ul></li>
+</ul>
+</div>
+<div id="example-uses" class="section level2">
+<h2>Example Uses</h2>
+<ul>
+<li><p>One use case would be to call RunExample() and enter an area’s coordinates or zip code.</p></li>
+<li><p>An example of how to use all of the functions together to get information about a location can be found below.</p></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;kgc&quot;</span>)
+data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">site =</span> <span class="kw">c</span>(<span class="st">&quot;GC&quot;</span>,<span class="st">&quot;UFS&quot;</span>,<span class="st">&quot;NEG&quot;</span>), <span class="dt">zip =</span> <span class="kw">c</span>(<span class="dv">44106</span>, <span class="dv">96701</span>, <span class="dv">80019</span>))
+data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">TranslateZipCode</span>(data))
+data</code></pre></div>
+<pre><code>##   site   zip Latitude  Longitude
+## 1   GC 44106 41.50534  -81.60543
+## 2  UFS 96701 21.40605 -157.88495
+## 3  NEG 80019 39.78962 -104.69935</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(data, <span class="dt">rndCoord.lat =</span> <span class="kw">RoundCoordinates</span>(data<span class="op">$</span>Latitude), <span class="dt">rndCoord.lon =</span> <span class="kw">RoundCoordinates</span>(data<span class="op">$</span>Longitude))
+data</code></pre></div>
+<pre><code>##   site   zip Latitude  Longitude rndCoord.lat rndCoord.lon
+## 1   GC 44106 41.50534  -81.60543        41.75       -81.75
+## 2  UFS 96701 21.40605 -157.88495        21.25      -157.75
+## 3  NEG 80019 39.78962 -104.69935        39.75      -104.75</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(data,<span class="dt">ClimateZ=</span><span class="kw">LookupCZ</span>(data))
+data</code></pre></div>
+<pre><code>##   site   zip Latitude  Longitude rndCoord.lat rndCoord.lon ClimateZ
+## 1   GC 44106 41.50534  -81.60543        41.75       -81.75      Dfa
+## 2  UFS 96701 21.40605 -157.88495        21.25      -157.75       As
+## 3  NEG 80019 39.78962 -104.69935        39.75      -104.75      BSk</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(data, <span class="kw">CZUncertainty</span>(data))
+data</code></pre></div>
+<pre><code>##   site   zip Latitude  Longitude rndCoord.lat rndCoord.lon ClimateZ
+## 1   GC 44106 41.50534  -81.60543        41.75       -81.75      Dfa
+## 2  UFS 96701 21.40605 -157.88495        21.25      -157.75       As
+## 3  NEG 80019 39.78962 -104.69935        39.75      -104.75      BSk
+##   uncertainty possible.cz
+## 1   0.5714286         Dfb
+## 2   0.1666667          Af
+## 3   0.2222222         Dfb</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rename</span>(data, <span class="kw">c</span>(<span class="st">&quot;rndCoord.lat&quot;</span> =<span class="st"> &quot;rounded lat&quot;</span>, <span class="st">&quot;rndCoord.lon&quot;</span> =<span class="st"> &quot;rounded long&quot;</span>, <span class="st">&quot;ClimateZ&quot;</span> =<span class="st">  &quot;predicted KG-CZ&quot;</span>, <span class="st">&quot;possible.cz&quot;</span>=<span class="st">&quot;possible KG-CZ&quot;</span>))</code></pre></div>
+<pre><code>##   site   zip Latitude  Longitude rounded lat rounded long predicted KG-CZ
+## 1   GC 44106 41.50534  -81.60543       41.75       -81.75             Dfa
+## 2  UFS 96701 21.40605 -157.88495       21.25      -157.75              As
+## 3  NEG 80019 39.78962 -104.69935       39.75      -104.75             BSk
+##   uncertainty possible KG-CZ
+## 1   0.5714286            Dfb
+## 2   0.1666667             Af
+## 3   0.2222222            Dfb</code></pre>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

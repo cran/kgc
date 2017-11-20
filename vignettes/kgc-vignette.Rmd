@@ -1,0 +1,77 @@
+---
+title: "KGC Vignette"
+author: "Chelsey Bryant, Nicholas R. Wheeler, Franz Rubel, Roger H. French"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{1 - KGC Vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\usepackage[utf8]{inputenc}
+---
+
+This package was created to ease the process of looking up the Koppen-Geiger Climate Zones for areas. Within this package, one will find helper functions and look up functions.
+
+## Helper functions
+
+These functions within the package help in formatting the data in a way that will lead to a climate zone being predicted. 
+
+  * RoundCoordinates()
+  
+    - As of right now, the data available to help identify a Koppen-Geiger Climate Zone only supports co-ordinates that end in either .25 or .75. This function will then round the inputed parameter to end in one of these patterns. In the case of a number being equally distant from .25 and .75, it will round up for the counting numbers and round down for those that are not.
+  
+    - Requires a numeric argument and returns the numeric, rounded integer
+  
+  * TranslateZipCode()
+  
+    - This function will take a given zip code and provide the longitude and latitude for that location. These co-ordinates are what will be used to look up the climate zone. The longitude and latitude information is according to the 2016 U.S. Census Data.
+  
+    - Requires a numeric argument and returns a data frame with the zip code, longitude, and latitude. Parameters can be one individual zip code or a dataframe with a numeric column titled 'zip'
+    
+  * RunExample()
+  
+    - This function will run the shiny app found within this package. This shiny app will hide the function calls so that the user does not need to worry about creating data frames or labeling columns appropriately. All that is needed is either a zip code or longitude and latitude co-ordinates for a location. 
+    
+    - To start the shiny app, simply call "RunExample()"
+
+## Look up functions
+
+These functions will search for the climate zone 
+
+  * LookUpCZ()
+  
+    - This function requires a data frame as a parameter. Within this data frame, there must be two columns:
+        * roundCoord.lat: The rounded latitudinal coordinate
+        * roundCoord.lon: The rounded longitudinal coordinate
+  
+    - The function will then use these two columns to look up the Koppen Geiger Climate Zone for that location.
+  
+    - The function returns the predicted climate zone for that location.
+  
+  * CZUncertainty()
+  
+    - This function requires a data frame as a parameter. Within this data frame, three columns are required:
+      - ClimateZ: The predicted climate zone that is returned using the LookUpCZ function
+      - roundCoord.lat: The rounded latitude coordinate
+      - roundCoord.lon: The rounded longitude coordinate
+      
+    - This function will return the uncertainty associated with the predicted climate zone along with other possible climate zones that an area may be in.
+
+## Example Uses
+
+  - One use case would be to call RunExample() and enter an area's coordinates or zip code.
+
+  - An example of how to use all of the functions together to get information about a location can be found below.
+
+```{r, message=FALSE, warning=FALSE}
+library("kgc")
+data <- data.frame(site = c("GC","UFS","NEG"), zip = c(44106, 96701, 80019))
+data <- data.frame(TranslateZipCode(data))
+data
+data <- data.frame(data, rndCoord.lat = RoundCoordinates(data$Latitude), rndCoord.lon = RoundCoordinates(data$Longitude))
+data
+data <- data.frame(data,ClimateZ=LookupCZ(data))
+data
+data <- data.frame(data, CZUncertainty(data))
+data
+rename(data, c("rndCoord.lat" = "rounded lat", "rndCoord.lon" = "rounded long", "ClimateZ" =  "predicted KG-CZ", "possible.cz"="possible KG-CZ"))
+```
