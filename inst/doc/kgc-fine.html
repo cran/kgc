@@ -12,7 +12,7 @@
 
 <meta name="author" content="Nicholas R. Wheeler, Chelsey Bryant, Franz Rubel, Roger H. French" />
 
-<meta name="date" content="2017-11-17" />
+<meta name="date" content="2017-09-21" />
 
 <title>KGC Data Resolution Example</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">KGC Data Resolution Example</h1>
 <h4 class="author"><em>Nicholas R. Wheeler, Chelsey Bryant, Franz Rubel, Roger H. French</em></h4>
-<h4 class="date"><em>2017-11-17</em></h4>
+<h4 class="date"><em>2017-09-21</em></h4>
 
 
 
@@ -107,13 +107,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 5     Miami, Florida    tropical monsoon  Am -80.20889 25.77528000
 ## 6    Yangon, Myanmar    tropical monsoon  Am  96.18333 16.85000000</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="co"># Query Course Resolution</span>
-  data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(kgcities, <span class="dt">rndCoord.lon =</span> <span class="kw">RoundCoordinates</span>(kgcities<span class="op">$</span>lon), <span class="dt">rndCoord.lat =</span> <span class="kw">RoundCoordinates</span>(kgcities<span class="op">$</span>lat))
+  data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(kgcities, <span class="dt">rndCoord.lon =</span> <span class="kw">RoundCoordinates</span>(kgcities$lon), <span class="dt">rndCoord.lat =</span> <span class="kw">RoundCoordinates</span>(kgcities$lat))
   data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(data,<span class="dt">CZ.c=</span><span class="kw">LookupCZ</span>(data))
-  <span class="kw">colnames</span>(data)[<span class="kw">which</span>(<span class="kw">colnames</span>(data)<span class="op">==</span><span class="st">'rndCoord.lon'</span>)] &lt;-<span class="st"> 'rndCoord.lon.course'</span>
-  <span class="kw">colnames</span>(data)[<span class="kw">which</span>(<span class="kw">colnames</span>(data)<span class="op">==</span><span class="st">'rndCoord.lat'</span>)] &lt;-<span class="st"> 'rndCoord.lat.course'</span>
+  <span class="kw">colnames</span>(data)[<span class="kw">which</span>(<span class="kw">colnames</span>(data)==<span class="st">'rndCoord.lon'</span>)] &lt;-<span class="st"> 'rndCoord.lon.course'</span>
+  <span class="kw">colnames</span>(data)[<span class="kw">which</span>(<span class="kw">colnames</span>(data)==<span class="st">'rndCoord.lat'</span>)] &lt;-<span class="st"> 'rndCoord.lat.course'</span>
 
   <span class="co"># Query Fine Resolution</span>
-  data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(data, <span class="dt">rndCoord.lon =</span> <span class="kw">RoundCoordinates</span>(kgcities<span class="op">$</span>lon,<span class="dt">res=</span><span class="st">'fine'</span>,<span class="dt">latlong=</span><span class="st">'lon'</span>), <span class="dt">rndCoord.lat =</span> <span class="kw">RoundCoordinates</span>(kgcities<span class="op">$</span>lat,<span class="dt">res=</span><span class="st">'fine'</span>,<span class="dt">latlong=</span><span class="st">'lat'</span>))
+  data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(data, <span class="dt">rndCoord.lon =</span> <span class="kw">RoundCoordinates</span>(kgcities$lon,<span class="dt">res=</span><span class="st">'fine'</span>,<span class="dt">latlong=</span><span class="st">'lon'</span>), <span class="dt">rndCoord.lat =</span> <span class="kw">RoundCoordinates</span>(kgcities$lat,<span class="dt">res=</span><span class="st">'fine'</span>,<span class="dt">latlong=</span><span class="st">'lat'</span>))
   data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(data,<span class="dt">CZ.f=</span><span class="kw">LookupCZ</span>(data,<span class="dt">res=</span><span class="st">'fine'</span>))
 
   <span class="co"># Print Results</span>
@@ -168,7 +168,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 47                  Berlin, Germany Cfb  Cfb   Cfb
 ## 48     Port Elizabeth, South Africa Cfb  Cfa   BSh
 ## 49            Unalaska, Alaska, USA Cfc   ET   Cfc
-## 50               Reykjavik, Iceland Cfc  Cfc   Cfc
+## 50               Reykjavík, Iceland Cfc  Cfc   Cfc
 ## 51              Punta Arenas, Chile Cfc   ET   Cfc
 ## 52              Bishkek, Kyrgyzstan Dsa  Dfb   Dfa
 ## 53                      Mus, Turkey Dsa  Dsa   Dsb
